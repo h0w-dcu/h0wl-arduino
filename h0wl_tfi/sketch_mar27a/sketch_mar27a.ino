@@ -1,32 +1,34 @@
 #include <Servo.h>
 Servo microservo;
-#define LED1_PIN 3
-#define LED2_PIN 4
+#define LEDS_PIN 3
 
 void setup() {
   // put your setup code here, to run once:
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(LED1_PIN, OUTPUT);
-  pinMode(LED2_PIN, OUTPUT);
+  pinMode(LEDS_PIN, OUTPUT);  // for a 5v nano - both LEDs in series on pin 3
   microservo.attach(10);
 }
 
 void loop() {
   // put your main code here, to run repeatedly: 
 
-  // Turn the LED on
-  digitalWrite(LED1_PIN, HIGH);
-  digitalWrite(LED2_PIN, HIGH);
-  microservo.write(0);
-  
-  // Wait for 1.5 seconds
-  delay(1500);
+  for (int i = 0; i < 6; i++) {  // 6 loops, each takes 2 seconds
+    // Turn the LED on
+    digitalWrite(LEDS_PIN, HIGH);
+    if (i == 3) {
+      microservo.write(270);
+    }
+    else if (i == 5) {
+      microservo.write(0);    
+    }
+      
+    // Wait for 1 second
+    delay(1000);
 
-  // Turn the LED off
-  digitalWrite(LED1_PIN, LOW);
-  digitalWrite(LED2_PIN, LOW);
-  microservo.write(180);
+    // Turn the LED off
+    digitalWrite(LEDS_PIN, LOW);
 
-  // Wait for 1.5 seconds
-  delay(1500);  
+    // Wait for 1 second
+    delay(1000);  
+  }
 }
